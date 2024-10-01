@@ -6,7 +6,7 @@ Welcome to the **Python DSA** repository! This repository contains implementatio
 
 I will be covering these topics and will add all these while learning :
 
-## 0. Python Basics
+### 0. Python Basics
 - 
 ### 1. Data Structures
 -
