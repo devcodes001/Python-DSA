@@ -1,0 +1,204 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyN7gOQmHM4BzGkcpj2Xm9l6",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/devcodes001/Python-DSA/blob/main/dsa\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "!pip install nlpcloud"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "qKN0FIOK0AhK",
+        "outputId": "96649f05-4d87-4496-b632-8d8926e70f3d"
+      },
+      "execution_count": 1,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Requirement already satisfied: nlpcloud in /usr/local/lib/python3.10/dist-packages (1.1.47)\n",
+            "Requirement already satisfied: requests in /usr/local/lib/python3.10/dist-packages (from nlpcloud) (2.32.3)\n",
+            "Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib/python3.10/dist-packages (from requests->nlpcloud) (3.4.0)\n",
+            "Requirement already satisfied: idna<4,>=2.5 in /usr/local/lib/python3.10/dist-packages (from requests->nlpcloud) (3.10)\n",
+            "Requirement already satisfied: urllib3<3,>=1.21.1 in /usr/local/lib/python3.10/dist-packages (from requests->nlpcloud) (2.2.3)\n",
+            "Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.10/dist-packages (from requests->nlpcloud) (2024.12.14)\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#**OOP Project**"
+      ],
+      "metadata": {
+        "id": "u5XWFWUM0oKU"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import nlpcloud\n",
+        "class NLPApp:\n",
+        "    def __init__(self):\n",
+        "        self.__database = {}\n",
+        "        self.__first_menu()\n",
+        "\n",
+        "    def __first_menu(self):\n",
+        "        first_input = input(\"\"\"\n",
+        "        Hi! How would you like to proceed?\n",
+        "        1. Not a member? Register\n",
+        "        2. Already a member? Login\n",
+        "        3. Accidentally opened? Exit\n",
+        "        \"\"\")\n",
+        "        if first_input == '1':\n",
+        "            self.__register()\n",
+        "        elif first_input == '2':\n",
+        "            self.__login()\n",
+        "        elif first_input == '3':\n",
+        "            exit()\n",
+        "\n",
+        "    def __second_menu(self):\n",
+        "        second_input = input(\"\"\"\n",
+        "        Hi! How would you like to proceed?\n",
+        "        1. NER\n",
+        "        2. Language detection\n",
+        "        3. Sentiment analysis\n",
+        "        4. Logout\n",
+        "        \"\"\")\n",
+        "        if second_input == '1':\n",
+        "            self.__NER()\n",
+        "        elif second_input == '2':\n",
+        "            self.__grammer_correction()\n",
+        "        elif second_input == '3':\n",
+        "            self.__sentiment_analysis()\n",
+        "        else:\n",
+        "          exit()\n",
+        "\n",
+        "    def __register(self):\n",
+        "        name = input(\"Enter your name: \")\n",
+        "        email = input(\"Enter your email: \")\n",
+        "        password = input(\"Enter your password: \")\n",
+        "        if email in self.__database:\n",
+        "            print(\"Email already exists!\")\n",
+        "        else:\n",
+        "            self.__database[email] = [name, password]\n",
+        "            print(\"Registration successful\")\n",
+        "            self.__login()\n",
+        "\n",
+        "    def __login(self):\n",
+        "        email = input(\"Enter your email: \")\n",
+        "        password = input(\"Enter your password: \")\n",
+        "        if email in self.__database:\n",
+        "            if self.__database[email][1] == password:\n",
+        "                print(\"Login successful\")\n",
+        "                self.__second_menu()\n",
+        "            else:\n",
+        "                print(\"Wrong password!\")\n",
+        "                self.__login()\n",
+        "        else:\n",
+        "            print(\"This email is not registered\")\n",
+        "            self.__first_menu()\n",
+        "    def __NER(self):\n",
+        "      para = input('enter the paragraph : ')\n",
+        "      search_term = input(\"what yoy like to search : \")\n",
+        "      client = nlpcloud.Client(\"finetuned-llama-3-70b\", \"6ec255874e0d4ae841e7a1fb9c29ad9cf13443e3\", gpu=True)\n",
+        "      response = client.entities(para,searched_entity=search_term)\n",
+        "      for i in response['entities']:\n",
+        "          print(i['text'])\n",
+        "    def __grammer_correction(Self):\n",
+        "        para = input('enter the paragraph : ')\n",
+        "        client = nlpcloud.Client(\"finetuned-llama-3-70b\", \"6ec255874e0d4ae841e7a1fb9c29ad9cf13443e3\", gpu=True)\n",
+        "        response = client.gs_correction(para)\n",
+        "        print(f\"corrected : {response['correction']}\")\n",
+        "    def __sentiment_analysis(Self):\n",
+        "      para = input(\"enter the paragraph for sentiment analysis : \")\n",
+        "      client = nlpcloud.Client(\"finetuned-llama-3-70b\", \"6ec255874e0d4ae841e7a1fb9c29ad9cf13443e3\", gpu=True)\n",
+        "      response = client.sentiment(para,target=\"NLP Cloud\")\n",
+        "      L = []\n",
+        "      for i in response['scored_labels']:\n",
+        "        L.append(i['score'])\n",
+        "      index = sorted(list(enumerate(L)),key = lambda x:x[1] ,reverse = True)[0][0]\n",
+        "      print(response['scored_labels'][index]['label'])"
+      ],
+      "metadata": {
+        "id": "vDgQEQzu0sHU"
+      },
+      "execution_count": 1,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "app = NLPApp()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "YvAULgbf41H7",
+        "outputId": "c52f1f5c-cda3-41c8-bc53-01d0e6c9fc58"
+      },
+      "execution_count": 2,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "\n",
+            "        Hi! How would you like to proceed?\n",
+            "        1. Not a member? Register\n",
+            "        2. Already a member? Login\n",
+            "        3. Accidentally opened? Exit\n",
+            "        1\n",
+            "Enter your name: dev\n",
+            "Enter your email: dev\n",
+            "Enter your password: 123\n",
+            "Registration successful\n",
+            "Enter your email: dev\n",
+            "Enter your password: 123\n",
+            "Login successful\n",
+            "\n",
+            "        Hi! How would you like to proceed?\n",
+            "        1. NER\n",
+            "        2. Language detection\n",
+            "        3. Sentiment analysis\n",
+            "        4. Logout\n",
+            "        1\n",
+            "enter the paragraph : John Doe started learning Javascript when he was 15 years old. After a couple of years he switched to Python and starter learning low level programming. He is now a Go expert at Google.\n",
+            "what yoy like to search : programming languages\n",
+            "{'entities': [{'start': 26, 'end': 36, 'type': 'programming languages', 'text': 'Javascript'}, {'start': 102, 'end': 108, 'type': 'programming languages', 'text': 'Python'}, {'start': 165, 'end': 167, 'type': 'programming languages', 'text': 'Go'}]}\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
