@@ -1,4 +1,4 @@
-#https://leetcode.com/problems/merge-strings-alternately/description/
+#Problem : https://leetcode.com/problems/merge-strings-alternately/description/
 
 
 def mergealternatively(s1,s2):
