@@ -8,13 +8,4 @@ def bubble_sort(arr):
                 arr[j], arr[j + 1] = arr[j + 1], arr[j]
       
     return arr
-
-
-
-
-
-
-
-
-
 print(bubble_sort([12,25,11,34,90,22]))
