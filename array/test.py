@@ -24,12 +24,18 @@ def bubblesort(arr):
 			if arr[j] > arr[j+1]:
 				arr[j],arr[j+1] = arr[j+1],arr[j]
 	return arr
-#selection sort
+#Selection sort
 def selectionsort(arr):
-	pass
-	
+	n = len(arr)
+	for i in range(n):
+		min_el = i
+		for j in range(i+1,n-1):
+			if arr[j]<arr[min_el]:
+				min_el = j
+			arr[min_el],arr[j] = arr[j],arr[min_el]
+	return arr
 # print(linearsearch([11,21,33,44,59,70,99],70))
 # print(binarysearch([11,21,33,44,59,70,99],70))
-print(bubblesort([450,12,25,11,34,90,22,1000]))
-
+# print(bubblesort([450,12,25,11,34,90,22,1000]))
+print(selectionsort([450,12,25,11,34,90,22,1000]))
 
