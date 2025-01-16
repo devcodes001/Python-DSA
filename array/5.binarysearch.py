@@ -13,3 +13,4 @@ def binary_search(arr, target):
     return -1
 
 print(binary_search([10, 23, 35, 45, 50, 70, 85], 86))
+ 

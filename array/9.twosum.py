@@ -12,5 +12,5 @@ def twosum(nums, target):
         for j in range(i + 1, len(nums)):  # Start inner loop from i + 1
             if nums[i] + nums[j] == target:
                 return [i, j]
-
+                 
 print(twosum(nums=[3, 2, 3], target=6))
